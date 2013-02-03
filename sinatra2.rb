@@ -1,5 +1,10 @@
 require 'sinatra'  
 require 'data_mapper'
+require 'sinatra/flash'  
+require 'sinatra/redirect_with_flash'  
+
+SITE_TITLE = "Recall"
+SITE_DESCRIPTION = "'cause you're too busy to remember"
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")  
 class Note  
@@ -13,13 +18,16 @@ end
 DataMapper.finalize.auto_upgrade!
 
 helpers do
-  include Rack:Utils
-  alias_method :h, :excape_html
+  include Rack::Utils
+  alias_method :h, :escape_html
 end
 
 get '/' do
   @notes = Note.all :order => :id.desc
   @title = 'All Notes'
+  if @notes.empty?
+    flash[:error] = 'No notes found, add your first below!'
+  end
   erb :home
 end
 
@@ -28,23 +36,42 @@ post '/' do
   n.content = params[:content]
   n.created_at = Time.now
   n.updated_at = Time.now
-  n.save
+  if n.save  
+    redirect '/', :notice => 'Note created successfully.'  
+  else  
+    redirect '/', :error => 'Failed to save note.'  
+  end  
   redirect '/'
+end
+
+get '/rss.mxl' do
+  @notes = Note.all :order => :id.desc
+  builder :rss
 end
 
 get '/:id' do
   @note = Note.get params[:id]
   @title = "Edit note ##{params[:id]}"
-  erb :edit
+  if @note
+    erb :edit
+  else
+    redirect '/', :error => "Can't find that note!"
+  end
 end
 
-put '/:id' do
-  n = Note.get params[:id]
-  n.content = params[:content]
-  n.complete = params[:complete] ? 1 : 0
-  n.updated_at = Time.now
-  n.save
-  redirect '/'
+put '/:id' do  
+  n = Note.get params[:id]  
+  unless n  
+    redirect '/', :error => "Can't find that note."  
+  end  
+  n.content = params[:content]  
+  n.complete = params[:complete] ? 1 : 0  
+  n.updated_at = Time.now  
+  if n.save  
+    redirect '/', :notice => 'Note updated successfully.' 
+  else 
+    redirect '/', :error => 'Error updating note.'  
+  end  
 end
 
 get '/:id/delete' do
