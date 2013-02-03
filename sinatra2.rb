@@ -12,6 +12,11 @@ class Note
 end  
 DataMapper.finalize.auto_upgrade!
 
+helpers do
+  include Rack:Utils
+  alias_method :h, :excape_html
+end
+
 get '/' do
   @notes = Note.all :order => :id.desc
   @title = 'All Notes'
