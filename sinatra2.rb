@@ -8,7 +8,7 @@ require 'dm-postgres-adapter'
 SITE_TITLE = "Recall"
 SITE_DESCRIPTION = "'cause you're too busy to remember"
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/recall.db')
+DataMapper.setup(:default, ENV['HEROKU_POSTGRESQL_GREEN_URL'] || 'postgres://localhost/recall.db')
 class Note  
   include DataMapper::Resource  
   property :id, Serial  
