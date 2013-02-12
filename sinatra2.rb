@@ -1,8 +1,3 @@
-require 'sinatra'  
-require 'data_mapper'
-require 'sinatra/flash'  
-require 'sinatra/redirect_with_flash'  
-
 SITE_TITLE = "Recall"
 SITE_DESCRIPTION = "'cause you're too busy to remember"
 
