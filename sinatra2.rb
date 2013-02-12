@@ -6,6 +6,9 @@ require 'rubygems'
 require 'dm-timestamps'
 require 'dm-postgres-adapter'
 
+enable :sessions  
+use Rack::Flash, :sweep => true 
+
 SITE_TITLE = "Recall"
 SITE_DESCRIPTION = "'cause you're too busy to remember"
 
