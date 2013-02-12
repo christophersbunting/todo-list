@@ -9,15 +9,15 @@
       <h1><a href="/"><%= SITE_TITLE %></a></h1>  
       <h2><%= SITE_DESCRIPTION %></h2>
   </header>
-  <div id="main">
-  <% if flash[:notice] %>  
-    <p class="notice"><%= flash.new[:notice] %>  
-  <% end %>  
-  <% if flash[:error] %>  
-    <p class="error"><%= flash.new[:error] %>  
-  <% end %>
-    <%= yield %>
-  </div>
+    <div id="main">
+      <% if flash[:notice] %> 
+        <p class="notice"><%= flash.new[:notice] %>  
+      <% end %>  
+      <% if flash[:error] %>  
+        <p class="error"><%= flash.new[:error] %>  
+      <% end %>
+      <%= yield %>
+    </div>
   <footer>
     <p><small>An app for <a href="http://net.tutsplus.com">Nettuts+</a>.</small></p>
   </footer>
