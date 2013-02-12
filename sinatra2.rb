@@ -1,3 +1,11 @@
+require 'sinatra'  
+require 'data_mapper'
+require 'sinatra/flash'  
+require 'sinatra/redirect_with_flash'  
+require 'rubygems'
+require 'dm-timestamps'
+require 'dm-postgres-adapter'  
+
 SITE_TITLE = "Recall"
 SITE_DESCRIPTION = "'cause you're too busy to remember"
 

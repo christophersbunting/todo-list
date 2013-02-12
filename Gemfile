@@ -7,17 +7,9 @@ gem 'rack-flash'
 gem 'sinatra-redirect-with-flash'
 
 group :development do
-gem 'dm-sqlite-adapter'
-gem 'heroku'
+	gem 'dm-sqlite-adapter'
+	gem 'heroku'
 end
-
-require 'sinatra'  
-require 'data_mapper'
-require 'sinatra/flash'  
-require 'sinatra/redirect_with_flash'  
-require 'rubygems'
-require 'dm-timestamps'
-require 'dm-postgres-adapter'
 
 enable :sessions
 
