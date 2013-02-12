@@ -10,5 +10,3 @@ group :development do
 	gem 'dm-sqlite-adapter'
 	gem 'heroku'
 end
-
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/supportLog.db")
