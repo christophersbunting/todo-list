@@ -1,7 +1,7 @@
 SITE_TITLE = "Recall"
 SITE_DESCRIPTION = "'cause you're too busy to remember"
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/recall.db")  
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/mydatabase.db")
 class Note  
   include DataMapper::Resource  
   property :id, Serial  
