@@ -19,14 +19,13 @@ DataMapper.finalize.auto_upgrade!
 
 helpers do
   include Rack::Utils
-  alias_method :h, :escape_html
 end
 
 get '/' do
   @notes = Note.all :order => :id.desc
   @title = 'All Notes'
   if @notes.empty?
-    flash[:error] = 'No notes found, add your first below!'
+    flash[:error] = 'No notes found, add your first note below!'
   end
   erb :home
 end
@@ -44,14 +43,14 @@ post '/' do
   redirect '/'
 end
 
-get '/rss.mxl' do
+get '/rss.xml' do
   @notes = Note.all :order => :id.desc
   builder :rss
 end
 
 get '/:id' do
   @note = Note.get params[:id]
-  @title = "Edit note ##{params[:id]}"
+  @title = "Edit note #{params[:id]}"
   if @note
     erb :edit
   else
@@ -59,9 +58,9 @@ get '/:id' do
   end
 end
 
-put '/:id' do  
-  n = Note.get params[:id]  
-  unless n  
+put '/:id' do
+  n = Note.get params[:id]
+  unless n
     redirect '/', :error => "Can't find that note."  
   end  
   n.content = params[:content]  
@@ -76,7 +75,7 @@ end
 
 get '/:id/delete' do
   @note = Note.get params[:id]
-  @title = "Confirm deletion of note ##{params[:id]}"
+  @title = "Confirm deletion of note #{params[:id]}"
   erb :delete
 end
 
