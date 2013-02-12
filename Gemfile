@@ -11,6 +11,4 @@ group :development do
 	gem 'heroku'
 end
 
-enable :sessions
-
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/supportLog.db")
