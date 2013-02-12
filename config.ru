@@ -1,2 +1,2 @@
-require 'sinatra2'
- run Sinatra::Application
+require './sinatra2'
+run Sinatra::Application
